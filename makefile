@@ -12,7 +12,7 @@ help:
 	@echo ""
 	@echo "Targets:"
 	@echo "  build  — build image"
-	@echo "  save   — build and save to tar file"
+	@echo "  save   — build and save to compressed tar.gz"
 	@echo "  local  — build, save, and load into sbx"
 	@echo "  show   — print image name and tar filename"
 	@echo ""
@@ -25,14 +25,14 @@ build: guard-TOOL guard-ENV
 	docker build --pull -t hw-$(TOOL)-$(ENV):$(TAG) ./hw-$(TOOL)-$(ENV)
 
 save: build
-	docker save hw-$(TOOL)-$(ENV):$(TAG) -o hw-$(TOOL)-$(ENV)-$(TAG).tar
-	@echo "Saved: hw-$(TOOL)-$(ENV)-$(TAG).tar"
+	docker save hw-$(TOOL)-$(ENV):$(TAG) | gzip > hw-$(TOOL)-$(ENV)-$(TAG).tar.gz
+	@echo "Saved: hw-$(TOOL)-$(ENV)-$(TAG).tar.gz"
 
 local: save
-	sbx template load hw-$(TOOL)-$(ENV)-$(TAG).tar
+	sbx template load hw-$(TOOL)-$(ENV)-$(TAG).tar.gz
 	@echo
 	@echo "Loaded: hw-$(TOOL)-$(ENV):$(TAG)"
 
 show: guard-TOOL guard-ENV
 	@echo "Image:    hw-$(TOOL)-$(ENV):$(TAG)"
-	@echo "Tar file: hw-$(TOOL)-$(ENV)-$(TAG).tar"
+	@echo "Tar file: hw-$(TOOL)-$(ENV)-$(TAG).tar.gz"
