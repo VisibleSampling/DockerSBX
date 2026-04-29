@@ -12,4 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -LsSf https://astral.sh/uv/install.sh | \
     env UV_INSTALL_DIR=/usr/local/bin sh
 
+RUN mkdir -p /etc/claude-code && \
+    echo '{"includeCoAuthoredBy": false}' > /etc/claude-code/managed-settings.json
+
 USER agent
