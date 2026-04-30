@@ -1,1 +1,15 @@
-{}
+{
+	"hooks": {
+		"UserPromptSubmit": [
+			{
+				"matcher": "",
+				"hooks": [
+					{
+						"type": "command",
+						"command": "bash .claude/knowledge-loader.sh"
+					}
+				]
+			}
+		]
+	}
+}
