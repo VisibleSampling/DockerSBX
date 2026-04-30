@@ -1,0 +1,25 @@
+schemaVersion: "1"
+kind: agent
+name: hw-sandclaw
+agent:
+  image: "git.honkinwaffles.com/hw/claude-core:20260430-215753"
+  persistence: persistent
+  entrypoint:
+    run: [claude]
+network:
+  serviceDomains:
+    api.anthropic.com: anthropic
+    console.anthropic.com: anthropic
+  serviceAuth:
+    anthropic:
+      headerName: x-api-key
+      valueFormat: "%s"
+  allowedDomains:
+    - "api.anthropic.com:443"
+    - "console.anthropic.com:443"
+    - "claude.com"
+credentials:
+  sources:
+    anthropic:
+      env:
+        - ANTHROPIC_API_KEY
