@@ -13,6 +13,6 @@ RUN curl -LsSf https://astral.sh/uv/install.sh | \
     env UV_INSTALL_DIR=/usr/local/bin sh
 
 RUN mkdir -p /etc/claude-code && \
-    echo '{"includeCoAuthoredBy": false}' > /etc/claude-code/managed-settings.json
+    echo '{"includeCoAuthoredBy": false, "defaultMode": "plan"}' > /etc/claude-code/managed-settings.json
 
 USER agent
