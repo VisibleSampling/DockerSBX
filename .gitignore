@@ -2,3 +2,5 @@
 ## Ignore Images
 hw-*-*.tar
 
+## Ignore Claude
+.claude
