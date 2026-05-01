@@ -4,7 +4,7 @@ Docker Sandbox (sbx) agent kit for running Claude Code in a restricted environme
 
 ## Why
 
-Docker Sandbox (sbx) was built to reduce the blast radius of running agents in yolo mode. SandClaw takes that further — tightening network access, enforcing plan mode, and generally limiting what the agent can do or reach.
+Docker Sandbox (sbx) was built to reduce the blast radius of running agents in yolo mode. SkitzoClaw takes that further — tightening network access, enforcing plan mode, and generally limiting what the agent can do or reach.
 
 ## What it does
 
