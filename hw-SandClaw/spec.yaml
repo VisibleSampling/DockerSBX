@@ -36,8 +36,6 @@ commands:
     - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
       user: "0"
       description: Install uv
-  initFiles:
-    - path: /etc/claude-code/managed-settings.json
-      content: '{"includeCoAuthoredBy": false}'
-      mode: "0644"
+    - command: "mkdir -p /etc/claude-code && echo '{\"includeCoAuthoredBy\": false}' > /etc/claude-code/managed-settings.json && chmod 0644 /etc/claude-code/managed-settings.json"
+      user: "0"
       description: Disable co-authored-by attribution
