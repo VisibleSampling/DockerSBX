@@ -1,4 +1,4 @@
-# SandClaw
+# SkitzoClaw
 
 Docker Sandbox (sbx) agent kit for running Claude Code in a restricted environment with increased security and safety.
 
@@ -13,6 +13,13 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 - Injects the Anthropic API key via service auth (automatic SSO is not working and requires login on first start)
 - Disables co-authored-by in commits
 - Allows the use of MCPs in project files
+
+## How to 
+
+- Install [DockerSBX](https://docs.docker.com/ai/sandboxes/)
+- Navigate to project directory
+- Run `sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-skitzoclaw-core" hw-skitzoclaw-core`
+- Login to Claude using sso or API key
 
 ## MCP Servers
 
@@ -38,4 +45,4 @@ MCPs are configured per-project via `.mcp.json` in the project root. Use `uv too
 
 ## Config
 
-Everything is in `hw-SandClaw/spec.yaml`.
+Everything is in `hw-skitzoclaw-core/spec.yaml`.
