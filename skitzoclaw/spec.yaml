@@ -36,7 +36,7 @@ commands:
     - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
       user: "0"
       description: Install uv
-    - command: "echo 'IyEvYmluL2Jhc2gKSU5QVVQ9JChjYXQpCkZJTEVfUEFUSD0kKGVjaG8gIiRJTlBVVCIgfCBqcSAtciAnLnRvb2xfaW5wdXQuZmlsZV9wYXRoIC8vIGVtcHR5JykKWyAteiAiJEZJTEVfUEFUSCIgXSAmJiBleGl0IDAKZ2l0IGNoZWNrLWlnbm9yZSAtcSAiJEZJTEVfUEFUSCIgMj4vZGV2L251bGwgJiYgewogIGVjaG8gIkFjY2VzcyBkZW5pZWQ6ICRGSUxFX1BBVEggaXMgbGlzdGVkIGluIC5naXRpZ25vcmUiCiAgZXhpdCAyCn0KZXhpdCAwCg==' | base64 -d > /usr/local/bin/gitignore-guard.sh && chmod +x /usr/local/bin/gitignore-guard.sh"
+    - command: "echo 'IyEvYmluL2Jhc2gKSU5QVVQ9JChjYXQpCkZJTEVfUEFUSD0kKGVjaG8gIiRJTlBVVCIgfCBqcSAtciAnLnRvb2xfaW5wdXQuZmlsZV9wYXRoIC8vIGVtcHR5JykKWyAteiAiJEZJTEVfUEFUSCIgXSAmJiBleGl0IDAKY2FzZSAiJEZJTEVfUEFUSCIgaW4KICAqLy5jbGF1ZGUvKnwuY2xhdWRlLyp8Ki8ubWNwLmpzb258Lm1jcC5qc29uKSBleGl0IDAgOzsKZXNhYwpnaXQgY2hlY2staWdub3JlIC1xICIkRklMRV9QQVRIIiAyPi9kZXYvbnVsbCAmJiB7CiAgZWNobyAiQWNjZXNzIGRlbmllZDogJEZJTEVfUEFUSCBpcyBsaXN0ZWQgaW4gLmdpdGlnbm9yZSIKICBleGl0IDIKfQpleGl0IDAK' | base64 -d > /usr/local/bin/gitignore-guard.sh && chmod +x /usr/local/bin/gitignore-guard.sh"
       user: "0"
       description: Install gitignore guard hook script
     - command: "mkdir -p /etc/claude-code && echo 'ewogICJpbmNsdWRlQ29BdXRob3JlZEJ5IjogZmFsc2UsCiAgImFsbG93TWFuYWdlZEhvb2tzT25seSI6IHRydWUsCiAgImhvb2tzIjogewogICAgIlByZVRvb2xVc2UiOiBbCiAgICAgIHsKICAgICAgICAibWF0Y2hlciI6ICJSZWFkfEVkaXR8V3JpdGUiLAogICAgICAgICJob29rcyI6IFt7ICJ0eXBlIjogImNvbW1hbmQiLCAiY29tbWFuZCI6ICIvdXNyL2xvY2FsL2Jpbi9naXRpZ25vcmUtZ3VhcmQuc2giIH1dCiAgICAgIH0KICAgIF0KICB9Cn0K' | base64 -d > /etc/claude-code/managed-settings.json && chmod 0644 /etc/claude-code/managed-settings.json"
