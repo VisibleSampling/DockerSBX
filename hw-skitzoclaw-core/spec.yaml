@@ -30,12 +30,15 @@ environment:
 
 commands:
   install:
-    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip build-essential vim && rm -rf /var/lib/apt/lists/*"
+    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip build-essential vim jq && rm -rf /var/lib/apt/lists/*"
       user: "0"
       description: Install Ansible and build tooling
     - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
       user: "0"
       description: Install uv
-    - command: "mkdir -p /etc/claude-code && echo '{\"includeCoAuthoredBy\": false}' > /etc/claude-code/managed-settings.json && chmod 0644 /etc/claude-code/managed-settings.json"
+    - command: "echo 'IyEvYmluL2Jhc2gKSU5QVVQ9JChjYXQpCkZJTEVfUEFUSD0kKGVjaG8gIiRJTlBVVCIgfCBqcSAtciAnLnRvb2xfaW5wdXQuZmlsZV9wYXRoIC8vIGVtcHR5JykKWyAteiAiJEZJTEVfUEFUSCIgXSAmJiBleGl0IDAKZ2l0IGNoZWNrLWlnbm9yZSAtcSAiJEZJTEVfUEFUSCIgMj4vZGV2L251bGwgJiYgewogIGVjaG8gIkFjY2VzcyBkZW5pZWQ6ICRGSUxFX1BBVEggaXMgbGlzdGVkIGluIC5naXRpZ25vcmUiCiAgZXhpdCAyCn0KZXhpdCAwCg==' | base64 -d > /usr/local/bin/gitignore-guard.sh && chmod +x /usr/local/bin/gitignore-guard.sh"
       user: "0"
-      description: Disable co-authored-by attribution
+      description: Install gitignore guard hook script
+    - command: "mkdir -p /etc/claude-code && echo 'ewogICJpbmNsdWRlQ29BdXRob3JlZEJ5IjogZmFsc2UsCiAgImFsbG93TWFuYWdlZEhvb2tzT25seSI6IHRydWUsCiAgImhvb2tzIjogewogICAgIlByZVRvb2xVc2UiOiBbCiAgICAgIHsKICAgICAgICAibWF0Y2hlciI6ICJSZWFkfEVkaXR8V3JpdGUiLAogICAgICAgICJob29rcyI6IFt7ICJ0eXBlIjogImNvbW1hbmQiLCAiY29tbWFuZCI6ICIvdXNyL2xvY2FsL2Jpbi9naXRpZ25vcmUtZ3VhcmQuc2giIH1dCiAgICAgIH0KICAgIF0KICB9Cn0K' | base64 -d > /etc/claude-code/managed-settings.json && chmod 0644 /etc/claude-code/managed-settings.json"
+      user: "0"
+      description: Write managed settings with gitignore hook
