@@ -1,8 +1,8 @@
 schemaVersion: "1"
 kind: agent
-name: hw-sandclaw
-displayName: SandClaw
-description: Honkinwaffles Custom SandClaw - Keeping Claude in a sandbox
+name: hw-skitzoclaw
+displayName: SkitzoClaw
+description: Honkinwaffles SkitzoClaw - Keeping Claude in a sandbox
 
 agent:
   image: "docker/sandbox-templates:claude-code-docker"
