@@ -36,9 +36,40 @@ commands:
     - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
       user: "0"
       description: Install uv
-    - command: "echo 'IyEvYmluL2Jhc2gKSU5QVVQ9JChjYXQpCkZJTEVfUEFUSD0kKGVjaG8gIiRJTlBVVCIgfCBqcSAtciAnLnRvb2xfaW5wdXQuZmlsZV9wYXRoIC8vIGVtcHR5JykKWyAteiAiJEZJTEVfUEFUSCIgXSAmJiBleGl0IDAKY2FzZSAiJEZJTEVfUEFUSCIgaW4KICAqLy5jbGF1ZGUvKnwuY2xhdWRlLyp8Ki8ubWNwLmpzb258Lm1jcC5qc29uKSBleGl0IDAgOzsKZXNhYwpnaXQgY2hlY2staWdub3JlIC1xICIkRklMRV9QQVRIIiAyPi9kZXYvbnVsbCAmJiB7CiAgZWNobyAiQWNjZXNzIGRlbmllZDogJEZJTEVfUEFUSCBpcyBsaXN0ZWQgaW4gLmdpdGlnbm9yZSIKICBleGl0IDIKfQpleGl0IDAK' | base64 -d > /usr/local/bin/gitignore-guard.sh && chmod +x /usr/local/bin/gitignore-guard.sh"
+    - command: |
+        cat << 'SCRIPT' > /usr/local/bin/gitignore-guard.sh
+        #!/bin/bash
+        INPUT=$(cat)
+        FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
+        [ -z "$FILE_PATH" ] && exit 0
+        case "$FILE_PATH" in
+          */.claude/*|.claude/*|*/.mcp.json|.mcp.json) exit 0 ;;
+        esac
+        git check-ignore -q "$FILE_PATH" 2>/dev/null && {
+          echo "Access denied: $FILE_PATH is listed in .gitignore"
+          exit 2
+        }
+        exit 0
+        SCRIPT
+        chmod +x /usr/local/bin/gitignore-guard.sh
       user: "0"
       description: Install gitignore guard hook script
-    - command: "mkdir -p /etc/claude-code && echo 'ewogICJpbmNsdWRlQ29BdXRob3JlZEJ5IjogZmFsc2UsCiAgImFsbG93TWFuYWdlZEhvb2tzT25seSI6IHRydWUsCiAgImhvb2tzIjogewogICAgIlByZVRvb2xVc2UiOiBbCiAgICAgIHsKICAgICAgICAibWF0Y2hlciI6ICJSZWFkfEVkaXR8V3JpdGUiLAogICAgICAgICJob29rcyI6IFt7ICJ0eXBlIjogImNvbW1hbmQiLCAiY29tbWFuZCI6ICIvdXNyL2xvY2FsL2Jpbi9naXRpZ25vcmUtZ3VhcmQuc2giIH1dCiAgICAgIH0KICAgIF0KICB9Cn0K' | base64 -d > /etc/claude-code/managed-settings.json && chmod 0644 /etc/claude-code/managed-settings.json"
+    - command: |
+        mkdir -p /etc/claude-code
+        cat << 'JSON' > /etc/claude-code/managed-settings.json
+        {
+          "includeCoAuthoredBy": false,
+          "allowManagedHooksOnly": true,
+          "hooks": {
+            "PreToolUse": [
+              {
+                "matcher": "Read|Edit|Write",
+                "hooks": [{ "type": "command", "command": "/usr/local/bin/gitignore-guard.sh" }]
+              }
+            ]
+          }
+        }
+        JSON
+        chmod 0644 /etc/claude-code/managed-settings.json
       user: "0"
       description: Write managed settings with gitignore hook
