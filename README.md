@@ -19,7 +19,7 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 
 - Install [DockerSBX](https://docs.docker.com/ai/sandboxes/)
 - Navigate to project directory
-- Run `sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-skitzoclaw-core" hw-skitzoclaw-core`
+- Run `sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" skitzoclaw`
 - Login to Claude using sso or API key
 
 ## MCP Servers
@@ -46,4 +46,4 @@ MCPs are configured per-project via `.mcp.json` in the project root. Use `uv too
 
 ## Config
 
-Everything is in `hw-skitzoclaw-core/spec.yaml`.
+Everything is in `skitzoclaw/spec.yaml`.

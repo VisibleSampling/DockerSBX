@@ -1,6 +1,6 @@
 schemaVersion: "1"
 kind: agent
-name: hw-skitzoclaw
+name: skitzoclaw
 displayName: SkitzoClaw
 description: Honkinwaffles SkitzoClaw - Keeping Claude in a sandbox
 
