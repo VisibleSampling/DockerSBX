@@ -9,7 +9,7 @@ agent:
   aiFilename: CLAUDE.md
   persistence: persistent
   entrypoint:
-    run: [claude]
+    run: [claude -plan]
 
 network:
   serviceDomains:
@@ -20,10 +20,11 @@ network:
     anthropic:
       headerName: x-api-key
       valueFormat: "%s"
+  allowedDomains:
+    - "downloads.claude.ai:443"
+    - "claude.com:443"
 
 environment:
-  proxyManaged:
-    - ANTHROPIC_API_KEY
   variables:
     IS_SANDBOX: "1"
 
@@ -35,3 +36,8 @@ commands:
     - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
       user: "0"
       description: Install uv
+  initFiles:
+    - path: /etc/claude-code/managed-settings.json
+      content: '{"includeCoAuthoredBy": false}'
+      mode: "0644"
+      description: Disable co-authored-by attribution
