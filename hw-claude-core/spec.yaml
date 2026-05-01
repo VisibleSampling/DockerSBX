@@ -1,25 +1,37 @@
 schemaVersion: "1"
 kind: agent
 name: hw-sandclaw
+displayName: SandClaw
+description: Honkinwaffles Custom SandClaw - Keeping Claude in a sandbox
+
 agent:
-  image: "git.honkinwaffles.com/hw/claude-core:20260430-215753"
+  image: "docker/sandbox-templates:claude-code-docker"
+  aiFilename: CLAUDE.md
   persistence: persistent
   entrypoint:
     run: [claude]
+
 network:
   serviceDomains:
     api.anthropic.com: anthropic
     console.anthropic.com: anthropic
+    claude.ai: anthropic
   serviceAuth:
     anthropic:
       headerName: x-api-key
       valueFormat: "%s"
-  allowedDomains:
-    - "api.anthropic.com:443"
-    - "console.anthropic.com:443"
-    - "claude.com"
-credentials:
-  sources:
-    anthropic:
-      env:
-        - ANTHROPIC_API_KEY
+
+environment:
+  proxyManaged:
+    - ANTHROPIC_API_KEY
+  variables:
+    IS_SANDBOX: "1"
+
+commands:
+  install:
+    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip build-essential vim && rm -rf /var/lib/apt/lists/*"
+      user: "0"
+      description: Install Ansible and build tooling
+    - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
+      user: "0"
+      description: Install uv
