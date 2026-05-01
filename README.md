@@ -13,7 +13,7 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 - Injects the Anthropic API key via service auth (automatic SSO is not working and requires login on first start)
 - Disables co-authored-by in commits
 - Allows the use of MCPs in project files
-- Blocks agent from reading files listed in .gitignore (e.g. .env)
+- Blocks agent from reading files listed in .gitignore (e.g. .env) — deterrent only, not guaranteed; shell access means a determined agent can find bypasses
 
 ## How to 
 
