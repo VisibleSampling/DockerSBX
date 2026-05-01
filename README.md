@@ -2,6 +2,10 @@
 
 Docker Sandbox agent kit for running Claude Code in a restricted environment.
 
+## Why
+
+Docker Sandbox (sbx) was built to reduce the blast radius of running agents in yolo mode. SandClaw takes that further — tightening network access, enforcing plan mode, and generally limiting what the agent can do or reach.
+
 ## What it does
 
 - Launches Claude Code in plan mode
