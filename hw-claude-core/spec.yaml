@@ -9,7 +9,7 @@ agent:
   aiFilename: CLAUDE.md
   persistence: persistent
   entrypoint:
-    run: [claude -plan]
+    run: [claude , --permission-mode, plan]
 
 network:
   serviceDomains:
