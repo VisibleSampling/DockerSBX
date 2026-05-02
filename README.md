@@ -1,49 +1,32 @@
-# SkitzoClaw
+# DockerSBX kits
 
-Docker Sandbox (sbx) agent kit for running Claude Code in a restricted environment with increased security and safety.
+Personal kits for [Docker Sandboxes](https://docs.docker.com/ai/sandboxes/) — declarative artifacts that extend `sbx run` agents with additional capabilities.
 
-## Why
+Each top-level directory is a kit containing a `spec.yaml` and a `README.md`.
 
-Docker Sandbox (sbx) was built to reduce the blast radius of running agents in yolo mode. SkitzoClaw takes that further — tightening network access, enforcing plan mode, and generally limiting what the agent can do or reach.
+## Kits
 
-## What it does
+| Kit | Kind | Description |
+| --- | --- | --- |
+| [`skitzoclaw/`](./skitzoclaw/) | agent | Claude Code in plan mode with tightened network policy, managed gitignore guard, and bundled tooling (Ansible, uv, vim, …) |
+| [`hw-rtk-claude/`](./hw-rtk-claude/) | mixin | Installs RTK and registers a Claude Code Bash rewrite hook for command-output compression |
 
-- Launches Claude Code in plan mode
-- Restricts network to Anthropic endpoints only
-- Injects the Anthropic API key via service auth (automatic SSO is not working and requires login on first start)
-- Disables co-authored-by in commits
-- Allows the use of MCPs in project files
-- Blocks agent from reading files listed in .gitignore (e.g. .env) — deterrent only, not guaranteed; shell access means a determined agent can find bypasses
+## Using a kit
 
-## How to 
+Pass `--kit` to `sbx run` (or `sbx create`). The flag accepts a local path or a `git+...` URL with a `dir=` fragment.
 
-- Install [DockerSBX](https://docs.docker.com/ai/sandboxes/)
-- Navigate to project directory
-- Run `sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" skitzoclaw`
-- Login to Claude using sso or API key
+```console
+# Local path
+sbx run --kit ./skitzoclaw/ skitzoclaw
 
-## MCP Servers
+# From this repo
+sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" skitzoclaw
 
-MCPs are configured per-project via `.mcp.json` in the project root. Use `uv tool run` (not `uvx`) for Python-based servers.
-
-```json
-{
-  "mcpServers": {
-    "python": {
-      "command": "uv",
-      "args": ["tool", "run", "python-interpreter-mcp"]
-    }
-  }
-}
+# Stack a mixin on top of the agent kit
+sbx run \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-rtk-claude" \
+  skitzoclaw
 ```
 
-## Tools installed at build time
-
-- Ansible + ansible-lint
-- Python 3, pip, uv
-- build-essential
-- vim
-
-## Config
-
-Everything is in `skitzoclaw/spec.yaml`.
+See each kit's `README.md` for kit-specific details.
