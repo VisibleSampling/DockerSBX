@@ -1,7 +1,7 @@
 schemaVersion: "1"
 kind: mixin
-name: hw-devtools-claude
-displayName: HW Dev Tools
+name: hw-systemstools-claude
+displayName: HW Systems Tools
 description: Install Ansible, and build tooling
 extends: claude
 

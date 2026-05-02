@@ -10,7 +10,7 @@ Each top-level directory is a kit containing a `spec.yaml` and a `README.md`.
 | --- | --- | --- |
 | [`skitzoclaw/`](./skitzoclaw/) | agent | Claude Code in plan mode with tightened network policy and managed gitignore guard |
 | [`hw-rtk-claude/`](./hw-rtk-claude/) | mixin | Installs RTK and registers a Claude Code Bash rewrite hook for command-output compression |
-| [`hw-devtools-claude/`](./hw-devtools-claude/) | mixin | Installs Ansible, and build tooling |
+| [`hw-systemstools-claude/`](./hw-systemstools-claude/) | mixin | Installs Ansible, and build tooling |
 
 ## Using a kit
 
@@ -27,7 +27,7 @@ sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzocl
 sbx run \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-rtk-claude" \
-  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-devtools-claude" \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-systemstools-claude" \
   skitzoclaw
 ```
 
