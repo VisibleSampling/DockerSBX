@@ -1,11 +1,11 @@
-# HW Dev Tools
+# HW Dev Tools Calude
 
 Mixin kit that installs Ansible, and build tooling.
 
 ## Use
 
 ```console
-sbx run claude --kit ./hw-devtools/
+sbx run claude --kit ./hw-devtools-claude/
 ```
 
 With SkitzoClaw:
@@ -13,7 +13,7 @@ With SkitzoClaw:
 ```console
 sbx run \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" \
-  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-devtools" \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-devtools-claude" \
   skitzoclaw
 ```
 
