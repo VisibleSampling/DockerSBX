@@ -8,8 +8,9 @@ Each top-level directory is a kit containing a `spec.yaml` and a `README.md`.
 
 | Kit | Kind | Description |
 | --- | --- | --- |
-| [`skitzoclaw/`](./skitzoclaw/) | agent | Claude Code in plan mode with tightened network policy, managed gitignore guard, and bundled tooling (Ansible, uv, vim, …) |
+| [`skitzoclaw/`](./skitzoclaw/) | agent | Claude Code in plan mode with tightened network policy and managed gitignore guard |
 | [`hw-rtk-claude/`](./hw-rtk-claude/) | mixin | Installs RTK and registers a Claude Code Bash rewrite hook for command-output compression |
+| [`hw-devtools/`](./hw-devtools/) | mixin | Installs Ansible, uv, vim, and build tooling |
 
 ## Using a kit
 

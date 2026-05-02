@@ -22,20 +22,23 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 - Run `sbx run --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" skitzoclaw`
 - Login to Claude using sso or API key
 
-## Optional Claude RTK Mixin
+## Optional mixins
 
-The sibling [`hw-rtk-claude`](../hw-rtk-claude/) mixin installs RTK and registers a managed Bash rewrite hook for automatic command-output compression.
+The [`hw-rtk-claude`](../hw-rtk-claude/) mixin installs RTK and registers a managed Bash rewrite hook for automatic command-output compression.
+
+The [`hw-devtools`](../hw-devtools/) mixin installs Ansible, uv, vim, and build tooling.
 
 ```console
 sbx run \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-rtk-claude" \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-devtools" \
   skitzoclaw
 ```
 
 ## MCP Servers
 
-MCPs are configured per-project via `.mcp.json` in the project root. Use `uv tool run` (not `uvx`) for Python-based servers.
+MCPs are configured per-project via `.mcp.json` in the project root. Use `uv tool run` (not `uvx`) for Python-based servers — requires the `hw-devtools` mixin.
 
 ```json
 {
@@ -47,13 +50,6 @@ MCPs are configured per-project via `.mcp.json` in the project root. Use `uv too
   }
 }
 ```
-
-## Tools installed at build time
-
-- Ansible + ansible-lint
-- Python 3, pip, uv
-- build-essential
-- vim
 
 ## Config
 

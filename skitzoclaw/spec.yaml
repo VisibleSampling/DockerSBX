@@ -30,12 +30,9 @@ environment:
 
 commands:
   install:
-    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip build-essential vim jq && rm -rf /var/lib/apt/lists/*"
+    - command: "apt-get update && apt-get install -y --no-install-recommends jq && rm -rf /var/lib/apt/lists/*"
       user: "0"
-      description: Install Ansible and build tooling
-    - command: "curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/usr/local/bin sh"
-      user: "0"
-      description: Install uv
+      description: Install jq
     - command: |
         cat << 'SCRIPT' > /usr/local/bin/gitignore-guard.sh
         #!/bin/bash
