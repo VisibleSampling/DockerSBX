@@ -10,7 +10,7 @@ Each top-level directory is a kit containing a `spec.yaml` and a `README.md`.
 | --- | --- | --- |
 | [`skitzoclaw/`](./skitzoclaw/) | agent | Claude Code in plan mode with tightened network policy and managed gitignore guard |
 | [`hw-rtk-claude/`](./hw-rtk-claude/) | mixin | Installs RTK and registers a Claude Code Bash rewrite hook for command-output compression |
-| [`hw-systemstools-claude/`](./hw-systemstools-claude/) | mixin | Installs Ansible, and build tooling |
+| [`hw-systemstools-claude/`](./hw-systemstools-claude/) | mixin | Installs Ansible, AWS CLI v2, CDK CLI, boto3, cfn-lint, and systems tooling |
 
 ## Using a kit
 

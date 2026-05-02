@@ -2,7 +2,7 @@ schemaVersion: "1"
 kind: mixin
 name: hw-systemstools-claude
 displayName: HW Systems Tools
-description: Install Ansible, and build tooling
+description: Install Ansible, AWS CLI, CDK, and systems tooling
 extends: claude
 
 network:
@@ -10,12 +10,25 @@ network:
     - "astral.sh:443"
     - "github.com:443"
     - "release-assets.githubusercontent.com:443"
+    - "awscli.amazonaws.com:443"
+    - "registry.npmjs.org:443"
+    - "pypi.org:443"
+    - "files.pythonhosted.org:443"
 
 commands:
   install:
-    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip build-essential && rm -rf /var/lib/apt/lists/*"
+    - command: "apt-get update && apt-get install -y --no-install-recommends ansible ansible-lint python3-pip python3-boto3 yamllint jq curl unzip nodejs npm build-essential && rm -rf /var/lib/apt/lists/*"
       user: "0"
-      description: Install dev tooling
+      description: Install apt packages
+    - command: "curl -fsSL https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o /tmp/awscliv2.zip && unzip -q /tmp/awscliv2.zip -d /tmp && /tmp/aws/install && rm -rf /tmp/awscliv2.zip /tmp/aws"
+      user: "0"
+      description: Install AWS CLI v2
+    - command: "npm install -g aws-cdk"
+      user: "0"
+      description: Install AWS CDK CLI
+    - command: "pip3 install --no-cache-dir cfn-lint"
+      user: "0"
+      description: Install cfn-lint
 
 
 
