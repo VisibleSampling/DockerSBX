@@ -54,7 +54,7 @@ Invoke explicitly with `@agent-heavy-coder` or browse all agents with `/agents`.
 
 ## MCP Servers
 
-MCPs are configured per-project via `.mcp.json` in the project root. Use `uv tool run` (not `uvx`) for Python-based servers — requires the `hw-systemstools-claude` mixin.
+MCPs are configured per-project via `.mcp.json` in the project root. Use `uv tool run` (not `uvx`) for Python-based servers.
 
 ```json
 {
