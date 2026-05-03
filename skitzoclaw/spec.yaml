@@ -14,8 +14,6 @@ agent:
 network:
   serviceDomains:
     api.anthropic.com: anthropic
-    console.anthropic.com: anthropic
-    claude.ai: anthropic
   serviceAuth:
     anthropic:
       headerName: x-api-key
@@ -23,10 +21,13 @@ network:
   allowedDomains:
     - "downloads.claude.ai:443"
     - "claude.com:443"
+    - "claude.ai:443"
+    - "console.anthropic.com:443"
 
 environment:
   variables:
     IS_SANDBOX: "1"
+    ANTHROPIC_MODEL: "claude-haiku-4-5-20251001"
 
 commands:
   install:

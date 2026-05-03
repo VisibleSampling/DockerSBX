@@ -2,6 +2,9 @@
 ## Ignore Images
 hw-*-*.tar
 
-## Ignore Claude
-.claude
-.claude/
+## Ignore Claude (root only)
+/.claude
+/.claude/
+
+## Ignore SBX working directory
+/.sbx
