@@ -26,13 +26,13 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 
 The [`hw-rtk-claude`](../hw-rtk-claude/) mixin installs RTK and registers a managed Bash rewrite hook for automatic command-output compression.
 
-The [`hw-systemstools-claude`](../hw-systemstools-claude/) mixin installs Ansible, AWS CLI v2, CDK, boto3, cfn-lint, and build tooling.
+The [`hw-systemstools`](../hw-systemstools/) mixin installs Ansible, AWS CLI v2, CDK, boto3, cfn-lint, and build tooling.
 
 ```console
 sbx run \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=skitzoclaw" \
   --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-rtk-claude" \
-  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-systemstools-claude" \
+  --kit "git+https://github.com/VisibleSampling/DockerSBX.git#dir=hw-systemstools" \
   skitzoclaw
 ```
 
@@ -45,7 +45,7 @@ Seven Claude Code subagents are installed at `~/.claude/agents/` and available i
 | `heavy-coder` | Opus | Non-trivial implementation, complex debugging, architecture |
 | `quick-helper` | Haiku | Docs, summaries, search, Q&A — read-only |
 | `reviewer` | Sonnet | Code review after changes — read-only |
-| `infra-agent` | Sonnet | AWS, CDK, Ansible, IaC (requires `hw-systemstools-claude`) |
+| `infra-agent` | Sonnet | AWS, CDK, Ansible, IaC (requires `hw-systemstools`) |
 | `automation-agent` | Sonnet | Scripts, cron jobs, systemd timers, Ansible roles — builds automation artifacts |
 | `ops-agent` | Sonnet | Live-system diagnosis, log analysis, incident triage — read-only |
 | `config-agent` | Sonnet | Live system configuration — systemd, networking, packages, Opnsense, Unraid |

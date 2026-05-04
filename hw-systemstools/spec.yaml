@@ -1,9 +1,8 @@
 schemaVersion: "1"
 kind: mixin
-name: hw-systemstools-claude
+name: hw-systemstools
 displayName: HW Systems Tools
 description: Install Ansible, AWS CLI, CDK, and systems tooling
-extends: claude
 
 network:
   allowedDomains:
@@ -29,6 +28,5 @@ commands:
     - command: "uv tool install cfn-lint"
       user: "0"
       description: Install cfn-lint
-
 
 
