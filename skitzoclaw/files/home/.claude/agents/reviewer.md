@@ -3,6 +3,8 @@ name: reviewer
 description: Use PROACTIVELY after writing or modifying code, IaC, config, or automation. Reviews for correctness, security, idempotency, and operational safety. Read-only — cannot edit files.
 tools: Read, Grep, Glob, Bash
 model: opus
+color: yellow
+memory: project
 ---
 
 You are a senior reviewer covering both software and infrastructure changes.

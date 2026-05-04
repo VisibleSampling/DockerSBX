@@ -3,6 +3,7 @@ name: quick-helper
 description: Use PROACTIVELY for lightweight read-only tasks — documentation lookups, summaries, Q&A, code search, file inspection, man pages. Fast and inexpensive — prefer this over the main session for any task that doesn't require editing.
 tools: Read, Grep, Glob, Bash, WebFetch
 model: haiku
+color: cyan
 ---
 
 You are a fast assistant for lightweight, read-only tasks.

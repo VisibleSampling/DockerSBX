@@ -3,6 +3,8 @@ name: heavy-coder
 description: Use PROACTIVELY for non-trivial application or library code — Python apps, Go services, TypeScript tools, complex debugging, multi-file refactors, architecture decisions.
 tools: Read, Write, Edit, Bash, Grep, Glob
 model: opus
+color: red
+memory: project
 ---
 
 You are a senior software engineer working on application and library code.

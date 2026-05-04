@@ -122,6 +122,17 @@ commands:
       user: "0"
       description: Install knowledge loader hook script
     - command: |
+        cat << 'SCRIPT' > /usr/local/bin/announce-agent.sh
+        #!/usr/bin/env bash
+        INPUT=$(cat)
+        AGENT=$(echo "$INPUT" | jq -r '.agent_type // .subagent_type // .agentType // "agent"')
+        echo "→ Routing to ${AGENT}" >&2
+        exit 0
+        SCRIPT
+        chmod +x /usr/local/bin/announce-agent.sh
+      user: "0"
+      description: Install subagent announcement hook script
+    - command: |
         mkdir -p /etc/claude-code
         cat << 'JSON' > /etc/claude-code/managed-settings.json
         {
@@ -137,6 +148,11 @@ commands:
             "UserPromptSubmit": [
               {
                 "hooks": [{ "type": "command", "command": "/usr/local/bin/knowledge-loader.sh" }]
+              }
+            ],
+            "SubagentStart": [
+              {
+                "hooks": [{ "type": "command", "command": "/usr/local/bin/announce-agent.sh" }]
               }
             ]
           }

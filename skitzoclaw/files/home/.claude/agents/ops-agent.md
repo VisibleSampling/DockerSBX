@@ -3,6 +3,7 @@ name: ops-agent
 description: Use PROACTIVELY for live-system diagnosis, log analysis, incident triage, and performance investigation. Read-mostly — observes running systems, reports findings, hands off mutations.
 tools: Read, Grep, Glob, Bash
 model: sonnet
+color: purple
 ---
 
 You are an operations engineer specializing in diagnosing running Linux systems.
