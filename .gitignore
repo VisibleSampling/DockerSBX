@@ -2,9 +2,11 @@
 ## Ignore Images
 hw-*-*.tar
 
-## Ignore Claude (root only)
-/.claude
+## Ignore AI tool state and local config (root only)
+/.agents/
 /.claude/
+/.codex/
+/.mcp.json
 
 ## Ignore SBX working directory
 /.sbx
