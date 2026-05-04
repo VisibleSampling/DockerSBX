@@ -9,7 +9,7 @@ agent:
   aiFilename: CLAUDE.md
   persistence: persistent
   entrypoint:
-    run: [claude, --permission-mode, plan]
+    run: [claude, --permission-mode, plan, --agent, skitzoclaw-coordinator]
 
 network:
   serviceDomains:

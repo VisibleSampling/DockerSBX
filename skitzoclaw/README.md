@@ -9,6 +9,7 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 ## What it does
 
 - Launches Claude Code in plan mode
+- Runs the main Claude Code session as the `skitzoclaw-coordinator` subagent for automatic routing
 - Restricts network to Anthropic endpoints only
 - Injects the Anthropic API key via service auth (automatic SSO is not working and requires login on first start)
 - Disables co-authored-by in commits
@@ -38,10 +39,11 @@ sbx run \
 
 ## Subagents
 
-Seven Claude Code subagents are installed at `~/.claude/agents/` and available in every session. Claude defaults to Haiku for orchestration and routes heavier work to the appropriate subagent automatically.
+Eight Claude Code subagents are installed at `~/.claude/agents/` and available in every session. The main session starts as `skitzoclaw-coordinator` with Haiku, then routes work to the appropriate specialist automatically. This avoids depending on `CLAUDE.md` for routing behavior, because Docker Sandbox can regenerate that file.
 
 | Agent | Model | Purpose |
 | --- | --- | --- |
+| `skitzoclaw-coordinator` | Haiku | Main-session router; delegates work to the specialist agents |
 | `heavy-coder` | Opus | Non-trivial implementation, complex debugging, architecture |
 | `quick-helper` | Haiku | Docs, summaries, search, Q&A — read-only |
 | `reviewer` | Sonnet | Code review after changes — read-only |
