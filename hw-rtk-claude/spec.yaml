@@ -20,47 +20,9 @@ commands:
     - command: "curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | env RTK_INSTALL_DIR=/usr/local/bin sh && /usr/local/bin/rtk --version && /usr/local/bin/rtk gain >/dev/null"
       user: "0"
       description: Install RTK token optimizer
-    - command: |
-        cat << 'SCRIPT' > /usr/local/bin/rtk-rewrite-claude.sh
-        #!/usr/bin/env bash
-        if ! command -v jq >/dev/null 2>&1; then
-          echo "[rtk] WARNING: jq is not installed. Hook cannot rewrite commands." >&2
-          exit 0
-        fi
-
-        if ! command -v rtk >/dev/null 2>&1; then
-          echo "[rtk] WARNING: rtk is not installed or not in PATH. Hook cannot rewrite commands." >&2
-          exit 0
-        fi
-
-        INPUT=$(cat)
-        CMD=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
-        if [ -z "$CMD" ]; then
-          exit 0
-        fi
-
-        case "$CMD" in
-          rtk|rtk\ *) exit 0 ;;
-        esac
-
-        REWRITTEN=$(rtk rewrite "$CMD" 2>/dev/null || true)
-        if [ -z "$REWRITTEN" ]; then
-          printf -v QUOTED_CMD '%q' "$CMD"
-          REWRITTEN="rtk run $QUOTED_CMD"
-        elif [ "$CMD" = "$REWRITTEN" ]; then
-          printf -v QUOTED_CMD '%q' "$CMD"
-          REWRITTEN="rtk run $QUOTED_CMD"
-        fi
-
-        ORIGINAL_INPUT=$(echo "$INPUT" | jq -c '.tool_input')
-        UPDATED_INPUT=$(echo "$ORIGINAL_INPUT" | jq --arg cmd "$REWRITTEN" '.command = $cmd')
-        jq -n \
-          --argjson updated "$UPDATED_INPUT" \
-          '{ "hookSpecificOutput": { "hookEventName": "PreToolUse", "permissionDecision": "allow", "permissionDecisionReason": "RTK auto-rewrite", "updatedInput": $updated } }'
-        SCRIPT
-        chmod +x /usr/local/bin/rtk-rewrite-claude.sh
+    - command: "chmod +x /usr/local/bin/rtk-rewrite-claude.sh"
       user: "0"
-      description: Install RTK Claude Code rewrite hook script
+      description: Make RTK Claude Code rewrite hook executable
     - command: |
         mkdir -p /etc/claude-code
         settings=/etc/claude-code/managed-settings.json
