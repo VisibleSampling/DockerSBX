@@ -4,6 +4,8 @@ Mixin kit that installs RTK and registers a managed Claude Code Bash rewrite hoo
 
 The hook rewrites Bash commands through `rtk rewrite` before Claude runs them. If RTK does not rewrite a command, the hook still wraps it with `rtk run` so Bash usage consistently flows through RTK.
 
+RTK is currently installed from upstream `master`. Pin this mixin to a known tested release or commit once a stable RTK ref is chosen.
+
 ## Use
 
 ```console

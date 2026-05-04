@@ -17,6 +17,7 @@ commands:
     - command: "apt-get update && apt-get install -y --no-install-recommends jq curl ca-certificates && rm -rf /var/lib/apt/lists/*"
       user: "0"
       description: Install RTK hook dependencies
+    # RTK currently installs from upstream master; pin to a tested release or commit when one is chosen.
     - command: "curl -fsSL https://raw.githubusercontent.com/rtk-ai/rtk/refs/heads/master/install.sh | env RTK_INSTALL_DIR=/usr/local/bin sh && /usr/local/bin/rtk --version && /usr/local/bin/rtk gain >/dev/null"
       user: "0"
       description: Install RTK token optimizer

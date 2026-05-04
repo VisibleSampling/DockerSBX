@@ -36,7 +36,9 @@ commands:
       description: Install jq
     - command: |
         cat << 'SCRIPT' > /usr/local/bin/gitignore-guard.sh
-        #!/bin/bash
+        #!/usr/bin/env bash
+        set -euo pipefail
+
         INPUT=$(cat)
 
         is_exempt() {
@@ -71,14 +73,26 @@ commands:
           fi
         }
 
-        # Read/Edit/Write: check file_path directly
-        FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
-        if [ -n "$FILE_PATH" ]; then
-          deny_if_ignored "$FILE_PATH"
-        fi
+        # File-oriented tools commonly pass one of these path fields.
+        jq -r '
+          [
+            .tool_input.file_path?,
+            .tool_input.path?,
+            .tool_input.cwd?
+          ] | .[]? | select(type == "string" and length > 0)
+        ' <<<"$INPUT" | while IFS= read -r path; do
+          deny_if_ignored "$path"
+        done
+
+        # Patch-like input includes file paths in patch headers.
+        jq -r '.tool_input.command // .tool_input.patch // empty' <<<"$INPUT" \
+          | sed -nE 's/^\*\*\* (Add|Update|Delete) File: (.*)$/\2/p' \
+          | while IFS= read -r path; do
+              deny_if_ignored "$path"
+            done
 
         # Bash: scan command tokens for gitignored paths
-        COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
+        COMMAND=$(jq -r '.tool_input.command // empty' <<<"$INPUT")
         if [ -n "$COMMAND" ]; then
           for token in $COMMAND; do
             token="${token#\"}"
@@ -141,7 +155,7 @@ commands:
           "hooks": {
             "PreToolUse": [
               {
-                "matcher": "Read|Edit|Write|Bash",
+                "matcher": "Read|Edit|Write|Bash|Grep|Glob",
                 "hooks": [{ "type": "command", "command": "/usr/local/bin/gitignore-guard.sh" }]
               }
             ],

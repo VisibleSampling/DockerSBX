@@ -11,10 +11,10 @@ Docker Sandbox (sbx) was built to reduce the blast radius of running agents in y
 - Launches Claude Code in plan mode
 - Runs the main Claude Code session as the `skitzoclaw-coordinator` subagent for automatic routing
 - Restricts network to Anthropic endpoints only
-- Injects the Anthropic API key via service auth (automatic SSO is not working and requires login on first start)
+- Maps Anthropic service auth for API-key injection when a sandbox credentials source is configured; otherwise Claude may still require login or an API key on first start
 - Disables co-authored-by in commits
 - Allows the use of MCPs in project files
-- Blocks agent from reading files listed in .gitignore (e.g. .env) — deterrent only, not guaranteed; shell access means a determined agent can find bypasses
+- Best-effort guard blocks common Claude tools (`Read`, `Edit`, `Write`, `Bash`, `Grep`, `Glob`) from accessing files listed in `.gitignore` (e.g. `.env`). This is a deterrent, not a guarantee; shell access and complex paths can have bypasses.
 
 ## Use
 
@@ -46,7 +46,7 @@ Eight Claude Code subagents are installed at `~/.claude/agents/` and available i
 | `skitzoclaw-coordinator` | Haiku | Main-session router; delegates work to the specialist agents |
 | `heavy-coder` | Opus | Non-trivial implementation, complex debugging, architecture |
 | `quick-helper` | Haiku | Docs, summaries, search, Q&A — read-only |
-| `reviewer` | Sonnet | Code review after changes — read-only |
+| `reviewer` | Opus | Code review after changes — read-only |
 | `infra-agent` | Sonnet | AWS, CDK, Ansible, IaC (requires `hw-systemstools`) |
 | `automation-agent` | Sonnet | Scripts, cron jobs, systemd timers, Ansible roles — builds automation artifacts |
 | `ops-agent` | Sonnet | Live-system diagnosis, log analysis, incident triage — read-only |

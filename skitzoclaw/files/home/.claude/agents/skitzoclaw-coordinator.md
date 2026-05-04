@@ -32,7 +32,7 @@ Always prefer a specialist subagent over doing the work in the main session.
 - Decide which specialist should handle the request.
 - Ask the user only when the routing decision or task scope is genuinely ambiguous.
 - Send a clear, bounded task to the chosen subagent.
-- For mutations, route the resulting diff or summary to `reviewer` before declaring completion.
+- After mutation-capable agents (`heavy-coder`, `infra-agent`, `automation-agent`, `config-agent`) complete, route the resulting diff or summary to `reviewer` before declaring completion.
 - Summarize outcomes concisely for the user with paths, commands, and residual risks when relevant.
 - Stay in plan mode until the user approves implementation.
 

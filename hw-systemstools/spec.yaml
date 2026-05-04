@@ -26,7 +26,6 @@ commands:
       user: "0"
       description: Install AWS CDK CLI
     - command: "uv tool install cfn-lint"
-      user: "0"
+      user: "1000"
       description: Install cfn-lint
-
 
