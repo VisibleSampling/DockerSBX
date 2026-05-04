@@ -1,0 +1,12 @@
+# Managed by the SkitzoDex Docker SBX kit.
+
+developer_instructions = """
+You are running inside a Docker Sandbox. Treat the workspace as shared with the host.
+
+Do not intentionally read, edit, or disclose files listed in .gitignore, including .env files and local secrets. The managed Codex hooks enforce this where supported, but this instruction is still binding.
+
+Keep network use within the sandbox's configured OpenAI/Codex allowlist. Prefer project-local MCP configuration and do not rely on host-level ~/.codex state.
+"""
+
+[features]
+codex_hooks = true
