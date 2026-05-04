@@ -47,31 +47,47 @@ commands:
         }
 
         is_ignored() {
-          git check-ignore -q "$1" 2>/dev/null
+          git check-ignore -q -- "$1" 2>/dev/null
+        }
+
+        deny() {
+          local reason="$1"
+          jq -n --arg reason "$reason" '{
+            "hookSpecificOutput": {
+              "hookEventName": "PreToolUse",
+              "permissionDecision": "deny",
+              "permissionDecisionReason": $reason
+            }
+          }'
+          exit 0
+        }
+
+        deny_if_ignored() {
+          local path="$1"
+          [ -n "$path" ] || return 0
+          is_exempt "$path" && return 0
+          if is_ignored "$path"; then
+            deny "Access denied: $path is listed in .gitignore"
+          fi
         }
 
         # Read/Edit/Write: check file_path directly
         FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
         if [ -n "$FILE_PATH" ]; then
-          is_exempt "$FILE_PATH" && exit 0
-          is_ignored "$FILE_PATH" && {
-            echo "Access denied: $FILE_PATH is listed in .gitignore"
-            exit 2
-          }
-          exit 0
+          deny_if_ignored "$FILE_PATH"
         fi
 
         # Bash: scan command tokens for gitignored paths
         COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // empty')
         if [ -n "$COMMAND" ]; then
           for token in $COMMAND; do
+            token="${token#\"}"
+            token="${token%\"}"
+            token="${token#\'}"
+            token="${token%\'}"
             [[ "$token" == -* ]] && continue
             [[ ${#token} -lt 2 ]] && continue
-            is_exempt "$token" && continue
-            is_ignored "$token" && {
-              echo "Access denied: command references gitignored file: $token"
-              exit 2
-            }
+            deny_if_ignored "$token"
           done
         fi
 
