@@ -97,6 +97,31 @@ commands:
       user: "0"
       description: Install gitignore guard hook script
     - command: |
+        cat << 'SCRIPT' > /usr/local/bin/knowledge-loader.sh
+        #!/usr/bin/env bash
+        KNOWLEDGE_DIR="$HOME/.claude/knowledge"
+        [ -d "$KNOWLEDGE_DIR" ] || exit 0
+        CONTEXT=""
+        for f in "$KNOWLEDGE_DIR"/*.md "$KNOWLEDGE_DIR"/*.txt; do
+            [ -f "$f" ] || continue
+            CONTEXT+="--- $(basename "$f") ---
+        $(cat "$f")
+        "
+        done
+        [ -z "$CONTEXT" ] && exit 0
+        jq -n --arg ctx "Project knowledge base:
+        $CONTEXT" '{
+          "hookSpecificOutput": {
+            "hookEventName": "UserPromptSubmit",
+            "additionalContext": $ctx
+          }
+        }'
+        exit 0
+        SCRIPT
+        chmod +x /usr/local/bin/knowledge-loader.sh
+      user: "0"
+      description: Install knowledge loader hook script
+    - command: |
         mkdir -p /etc/claude-code
         cat << 'JSON' > /etc/claude-code/managed-settings.json
         {
@@ -108,10 +133,15 @@ commands:
                 "matcher": "Read|Edit|Write|Bash",
                 "hooks": [{ "type": "command", "command": "/usr/local/bin/gitignore-guard.sh" }]
               }
+            ],
+            "UserPromptSubmit": [
+              {
+                "hooks": [{ "type": "command", "command": "/usr/local/bin/knowledge-loader.sh" }]
+              }
             ]
           }
         }
         JSON
         chmod 0644 /etc/claude-code/managed-settings.json
       user: "0"
-      description: Write managed settings with gitignore hook
+      description: Write managed settings with gitignore and knowledge-loader hooks
