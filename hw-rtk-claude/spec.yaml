@@ -39,9 +39,17 @@ commands:
           exit 0
         fi
 
+        case "$CMD" in
+          rtk|rtk\ *) exit 0 ;;
+        esac
+
         REWRITTEN=$(rtk rewrite "$CMD" 2>/dev/null || true)
-        if [ -z "$REWRITTEN" ] || [ "$CMD" = "$REWRITTEN" ]; then
-          exit 0
+        if [ -z "$REWRITTEN" ]; then
+          printf -v QUOTED_CMD '%q' "$CMD"
+          REWRITTEN="rtk run $QUOTED_CMD"
+        elif [ "$CMD" = "$REWRITTEN" ]; then
+          printf -v QUOTED_CMD '%q' "$CMD"
+          REWRITTEN="rtk run $QUOTED_CMD"
         fi
 
         ORIGINAL_INPUT=$(echo "$INPUT" | jq -c '.tool_input')

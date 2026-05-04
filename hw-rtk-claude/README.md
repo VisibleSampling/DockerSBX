@@ -2,6 +2,8 @@
 
 Mixin kit that installs RTK and registers a managed Claude Code Bash rewrite hook for automatic command-output compression.
 
+The hook rewrites Bash commands through `rtk rewrite` before Claude runs them. If RTK does not rewrite a command, the hook still wraps it with `rtk run` so Bash usage consistently flows through RTK.
+
 ## Use
 
 ```console
